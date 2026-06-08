@@ -8,6 +8,7 @@ export function generateToken(payload: object) {
     return jwt.sign(payload, SECRET, { expiresIn: '1hr' });
 }
 
+//decode the JWT / checks if the signature is valid{some one modified the token}/ checks expiration
 export function verifyToken(token: string) {
     return jwt.verify(token, SECRET);
 }

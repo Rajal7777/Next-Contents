@@ -10,7 +10,7 @@ export default function LoginPage() {
 
   //login function
   async function handleLogin() {
-    const response = await fetch("/api/login", {
+    const res = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,12 +18,13 @@ export default function LoginPage() {
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json();
+    const data = await res.json();
+
     if (data.token) {
       localStorage.setItem("token", data.token);
       router.push('/dashboard');
     } else {
-      alert('Log in failed');
+      alert('Invalid credential');
     }
   }
 

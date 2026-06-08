@@ -21,6 +21,6 @@ export async function POST(request: Request) {
       user,
     });
   } catch (error) {
-    return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    return NextResponse.json({ message: `Invalid token:${error}`}, { status: 401 });
   }
 }

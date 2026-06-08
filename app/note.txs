@@ -1,0 +1,18 @@
+//proxy '/dashboard' authentication
+
+User visits /dashboard
+        |
+        v
+Proxy runs
+        |
+        v
+Check auth cookie
+        |
+   +----+----+
+   |         |
+Cookie     No Cookie
+Exists      Exists
+   |         |
+   v         v
+Allow      Redirect
+Access     /login

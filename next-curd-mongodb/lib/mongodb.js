@@ -1,18 +1,13 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
 
-let client;
-let clientPromise;
+const client = new MongoClient(uri);
 
-//no uri
-if(!process.env.MONGODB_URI){
-    throw new Error('Please provide your MongoDB URI');
+export async function connectDB() {
+  const clientConection = client.connect();
+ //mongodb stores data in collections
+  const db = (await clientConection).db("nextjs-mongodb");
+
+  return db;
 }
-
-//create a new MongoDB client instace with the connection string.
-client = new MongoClient(uri);
-clientPromise = client.connect();
-
-
-export default clientPromise;

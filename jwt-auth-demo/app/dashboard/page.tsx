@@ -38,7 +38,7 @@ export default function Dashboard() {
         getProfile();
     }, []);
 
-
+ console.log(data)
 
     return (
         <div>
@@ -46,7 +46,9 @@ export default function Dashboard() {
             <pre>
                 {JSON.stringify(data, null, 2)}
             </pre>
-
+            <ul>
+                {data?.user?.email}
+            </ul>
         </div>
     );
 }

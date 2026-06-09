@@ -16,6 +16,7 @@ export async function POST(request: Request) {
   try {
     const user = verifyToken(token);
 
+    //success
     return NextResponse.json({
       message: "Protected data",
       user,

@@ -30,7 +30,7 @@ export default function LoginPage() {
 
   return (
     <div className="p-10 flex gap-2 items-center">
-      <label htmlFor="email">email</label>
+      <label htmlFor="email">email</label>    
       <input
         className="p-2 border"
         type="text"

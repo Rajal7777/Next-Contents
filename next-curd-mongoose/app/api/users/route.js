@@ -6,6 +6,6 @@ export async function GET() {
   console.log("Api call and db connected");
 
   return Response.json({
-    message: "connetion successfull",
+    message: "connetion successfully",
   });
 }

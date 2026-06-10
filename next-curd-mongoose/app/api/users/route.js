@@ -15,7 +15,7 @@ export async function GET() {
 }    
   */
 
-//POSt
+//POST
 export async function POST(req) {
   try {
     await connectDB();
@@ -30,6 +30,25 @@ export async function POST(req) {
   } catch (error) {
     return NextResponse.json({
       message: "Error creating User",
+      error: error.message,
+    });
+  }
+}
+
+//GET
+export async function GET() {
+  try {
+    await connectDB();
+
+    const users = await User.find();
+
+    return NextResponse.json({
+      message: "Successfully fetched data",
+      data: users,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      message: "Error fetching data.",
       error: error.message,
     });
   }

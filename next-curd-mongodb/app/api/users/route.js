@@ -28,13 +28,14 @@ export async function POST(req) {
   });
 }
 
+
 //put method
 export async function PUT(req) {
   const db = await connectDB();
   const body = await req.json();
 
   const { id, name, role } = body;
-
+  console.log('ID',id)
   if (!id) {
     return NextResponse.json({ message: "Error ID required" }, { status: 401 });
   }
@@ -61,17 +62,11 @@ export async function PATCH(req) {
 
   const body = await req.json();
 
-  console.log("BODY:", body);
-
+ 
   const { id, ...updatedFields } = body;
 
-  console.log("ID:", id);
-
   if (!id) {
-    return NextResponse.json(
-      { message: "ID required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "ID required" }, { status: 400 });
   }
 
   const result = await db.collection("users").updateOne(
@@ -80,7 +75,7 @@ export async function PATCH(req) {
     },
     {
       $set: updatedFields,
-    }
+    },
   );
 
   return NextResponse.json({
@@ -89,3 +84,32 @@ export async function PATCH(req) {
   });
 }
 
+//DELETE
+export async function DELETE(req){
+try {
+    const db = await connectDB();
+  const body = await req.json();
+
+  const { id } = body;
+
+  const result = await db.collection('users').deleteOne({
+    _id : new ObjectId(id)
+  })
+
+  if(result.deletedCount === 0){
+    return NextResponse.json({
+      message:'User Not Found'
+    })
+  }
+
+  return NextResponse.json({
+    message: 'user deleted Successfully!'
+  })
+  
+} catch (error) {
+   return NextResponse.json({
+    message: 'Error deleting user',
+    error: error.message
+   })
+}
+}

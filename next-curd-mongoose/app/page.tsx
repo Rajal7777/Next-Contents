@@ -10,7 +10,7 @@ export default function Home() {
   console.log("data", users);
   console.log("id", editId);
 
- //Get users
+  //Get users
   const fetchUser = async () => {
     const res = await fetch("/api/users");
     const data = await res.json();
@@ -69,45 +69,35 @@ export default function Home() {
     setEditId(user._id);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  //Delete
+  const handleDelete = async (userId) => {
+    await fetch(`/api/users/${userId}`, {
+      method: 'DELETE',
+    });
+    alert('Deleted Successfully');
 
-  //   const res = await fetch("api/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ name, email }),
-  //   });
-
-  //   const data = await res.json();
-  //   console.log(data);
-  //   alert("User created successfully");
-  //   setName("");
-  //   setEmail("");
-  // };
+    fetchUser();
+  };
 
   return (
-    <div>
+    <>
       <h1>{editId ? "Edit User" : "Create user"}</h1>
       <form onSubmit={handleSubmit} >
         <input
-         type="text"
+          type="text"
           placeholder="Enter name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <br /> <br />
-
-        <input
+        
+       <input
           type="text"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-         <br /> <br />
 
-        <button className="border py-2 px-5" type="submit">
+         <button type="submit">
           {editId ? "Edit User" : "Create user"}
         </button>
       </form>
@@ -117,14 +107,19 @@ export default function Home() {
         {users.map((user) => (
           <div key={user._id}>
             {user.name}-{user.email}
-            <button 
-            className="ml-6"
-            onClick={() => handleEdit(user)}>
+            <button
+              className="ml-6"
+              onClick={() => handleEdit(user)}>
               edit button
+            </button>
+            <button
+              className="ml-6"
+              onClick={() => handleDelete(user._id)}>
+              Delete
             </button>
           </div>
         ))}
       </div>
-    </div>
+     </>
   );
 }
